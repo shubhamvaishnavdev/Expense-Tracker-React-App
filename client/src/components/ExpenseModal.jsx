@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
 import { AiOutlineClose } from "react-icons/ai";
 
-const IncomeModal = ({ isOpen, setIsOpen, createData, incomeData }) => {
+
+const ExpenseModal = ({ isOpen, setIsOpen, createData, expenseData }) => {
+
     const [isLoading, setIsLoading] = useState(false);
-    const [selectedDate, setSelectedDate] = useState(formatDate(new Date(), true));
+    const [selectedDate, setSelectedDate] = useState(formatDate(new Date()));
     const [data, setData] = useState({
         Title: "",
-        Income: "",
+        Expense: "",
         Category: "",
         Desc: ""
     });
-
 
     function handleChange(e) {
         const { name, value } = e.target;
@@ -19,24 +20,19 @@ const IncomeModal = ({ isOpen, setIsOpen, createData, incomeData }) => {
             [name]: value,
         }));
     }
-    if (data.Category === undefined) {
-        setData({ ...data, Category: 'Uncategorised' });
-    }
     function handleDateChange(e) {
         setSelectedDate(e.target.value);
     }
-    
-    function formatDate(date, forInput = false) {
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-    
-        if (forInput) {
-            return `${year}-${month}-${day}`;
-        } else {
-            return `${day}/${month}/${year}`;
-        }
+
+
+    function formatDate(date) {
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear() % 100; 
+        return `${day}/${month}/${year}`;
     }
+
+
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -45,18 +41,19 @@ const IncomeModal = ({ isOpen, setIsOpen, createData, incomeData }) => {
         try {
             const newData = {
                 Title: data.Title,
-                Income: data.Income,
-                Date: new Date(selectedDate),  
+                Expense: data.Expense,
+                Date: new Date(selectedDate),
                 Category: data.Category.toLowerCase(),
                 Desc: data.Desc,
             };
             createData(newData)
             setIsOpen(false);
         } catch (error) {
-            console.error("Error sending data at Income form: ", error);
+            console.error("Error sending data at Expense form: ", error);
         }
         setIsLoading(false); // Hide the loader
     }
+
 
     return (
         <div
@@ -74,7 +71,7 @@ const IncomeModal = ({ isOpen, setIsOpen, createData, incomeData }) => {
                     <div className="px-8 pt-8 w-auto mx-auto">
                         <div className="mb-8">
 
-                            <h1 className=" text-3xl font-extrabold text-white mb-2">Add Income</h1>
+                            <h1 className=" text-3xl font-extrabold text-white mb-2">Add Expense</h1>
 
                             <form
                                 onSubmit={handleSubmit}
@@ -94,7 +91,7 @@ const IncomeModal = ({ isOpen, setIsOpen, createData, incomeData }) => {
 
                                 <label htmlFor="Title" className='nlock text-white font-semibold '>Title</label>
                                 <input type="text"
-                                    placeholder='Salary  '
+                                    placeholder='Grocery'
                                     id='Title'
                                     name='Title'
                                     value={data.Title}
@@ -102,15 +99,16 @@ const IncomeModal = ({ isOpen, setIsOpen, createData, incomeData }) => {
                                     className='focus:outline-none p-1 bg-gray-200 text-black'
                                 />
 
-                                <label htmlFor="Income" className='nlock text-white font-semibold '>Income</label>
+                                <label htmlFor="Expense" className='nlock text-white font-semibold '>Expense</label>
                                 <input type="text"
-                                    placeholder='1000'
-                                    id='Income'
-                                    name='Income'
-                                    value={data.Income}
+                                    placeholder='2499'
+                                    id='Expense'
+                                    name='Expense'
+                                    value={data.Expense}
                                     onChange={(e) => handleChange(e)}
                                     className='focus:outline-none p-1 bg-gray-200 text-black'
                                 />
+
 
                                 <label htmlFor="Category" className='nlock text-white font-semibold '>Category</label>
                                 <input type="text"
@@ -123,16 +121,15 @@ const IncomeModal = ({ isOpen, setIsOpen, createData, incomeData }) => {
                                     className='focus:outline-none p-1 bg-gray-200 text-black'
                                 />
                                 <datalist id="categoryOptions">
-                                    {incomeData.map((item) => (
+                                    {expenseData.map((item) => (
                                         <option key={item._id} value={item.Category} />
                                     ))}
                                 </datalist>
 
-
                                 <label htmlFor="Desc" className='nlock text-white font-semibold '>Description</label>
                                 <textarea id='Desc'
                                     name='Desc'
-                                    placeholder='Salary from freelancing'
+                                    placeholder='Purchase Grocery'
                                     value={data.Desc}
                                     onChange={(e) => handleChange(e)}
                                     className='focus:outline-none p-1 bg-gray-200 text-black'
@@ -156,8 +153,7 @@ const IncomeModal = ({ isOpen, setIsOpen, createData, incomeData }) => {
                 </div>
             </div>
         </div>
-
     )
 }
 
-export default IncomeModal
+export default ExpenseModal;

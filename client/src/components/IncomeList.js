@@ -9,13 +9,7 @@ const IncomeList = ({incomeData, handleDelete, type}) => {
     const [selectedId, setSelectedId] = useState('')
     const [viewDataId, setviewDataId] = useState('')
     const [viewInfo, setViewInfo] = useState(false)
-    // const incomeData = useSelector(state => state.IncomeData.value)
-    // const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     dispatch(getAllIncome());
-    //     // console.log("render");
-    // }, []);
 
     function handleUpdateIncome(id) {
         setSelectedId(id);

@@ -1,36 +1,39 @@
-const Expense = require("../model/ExpenseModel");
+const Expense = require("../model/ExpenseModel")
 
-async function allExpensesData(req, res) {
+
+async function allExpenseData(req, res) {
     try {
-        const expenseData = await Expense.find({});
-        res.status(200).json(expenseData);
+        const ExpenseData = await Expense.find({});
+        return res.status(200).json(ExpenseData)
+        
     } catch (error) {
-        console.error("Error at allExpensesData request:", error);
+        console.log("error at allExpenseData server: " + error);
         res.status(500).json({ message: error.message });
     }
 }
 
 async function addSingleExpenseData(req, res) {
     try {
+        // Create a new Expense document using the Expense model
         const newExpense = new Expense(req.body);
+        // Save the newExpense to the database
         const savedExpense = await newExpense.save();
-        res.status(200).json(savedExpense);
+        // const allExpenses = await Expense.find({});
+        res.status(200)
     } catch (error) {
-        console.error("Error at addSingleExpenseData post request:", error);
+        console.log("error at Expense addSingleExpenseData request:" + error);
         res.status(500).json({ message: error.message });
     }
 }
 
+
 async function getSingleExpense(req, res) {
     try {
         const { id } = req.params;
-        const singleExpense = await Expense.findById(id);
-        if (!singleExpense) {
-            return res.status(404).json({ message: `Expense with ID ${id} not found` });
-        }
-        res.status(200).json(singleExpense);
+        const SingleExpense = await Expense.findById(id);
+        res.status(200).json(SingleExpense)
     } catch (error) {
-        console.error("Error at getSingleExpense get request:", error);
+        console.log("error at Expense getSingleExpense request:" + error);
         res.status(500).json({ message: error.message });
     }
 }
@@ -38,13 +41,14 @@ async function getSingleExpense(req, res) {
 async function updateSingleExpense(req, res) {
     try {
         const { id } = req.params;
-        const updatedExpense = await Expense.findByIdAndUpdate(id, req.body, { new: true });
-        if (!updatedExpense) {
-            return res.status(404).json({ message: `Expense with ID ${id} not found` });
+        const updatingExpense = await Expense.findByIdAndUpdate(id,req.body, { new: true }); // Use { new: true } to get the updated document
+        if (!updatingExpense) {
+            return res.status(404).json({ message: `can not find Expense with ID: ${id}` });
         }
-        res.status(200).json(updatedExpense);
+        const allExpenses = await Expense.find({});
+        res.status(200).json(allExpenses);
     } catch (error) {
-        console.error("Error at updateSingleExpense put request:", error);
+        console.log("error at Expense updateSingleExpense request:" + error);
         res.status(500).json({ message: error.message });
     }
 }
@@ -54,17 +58,19 @@ async function deleteSingleExpense(req, res) {
         const { id } = req.params;
         const deletedExpense = await Expense.findByIdAndDelete(id);
         if (!deletedExpense) {
-            return res.status(404).json({ message: `Expense with ID ${id} not found` });
+            return res.status(404).json({ message: `can not find Expense with ID: ${id}` });
         }
-        res.status(200).json(deletedExpense);
+        // Find all remaining data except the deleted document
+        const remainData = await Expense.find({ _id: { $ne: id } });
+        res.status(200).json(remainData);
     } catch (error) {
-        console.error("Error at deleteSingleExpense delete request:", error);
+        console.log("error at Expense deleteSingleExpense  request:" + error);
         res.status(500).json({ message: error.message });
     }
 }
 
 module.exports = {
-    allExpensesData,
+    allExpenseData,
     addSingleExpenseData,
     getSingleExpense,
     updateSingleExpense,

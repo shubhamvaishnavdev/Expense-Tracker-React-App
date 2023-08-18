@@ -4,11 +4,10 @@ const Income = require("../model/IncomeModel")
 async function allIncomeData(req, res) {
     try {
         const IncomeData = await Income.find({});
-        console.log("reach allIncomeData at server");
         return res.status(200).json(IncomeData)
         
     } catch (error) {
-        console.log("error at income allIncomeData get request:" + error);
+        console.log("error at allIncomeData server: " + error);
         res.status(500).json({ message: error.message });
     }
 }
@@ -22,7 +21,7 @@ async function addSingleIncomeData(req, res) {
         // const allIncomes = await Income.find({});
         res.status(200)
     } catch (error) {
-        console.log("error at income addSingleIncomeData request:" + error);
+        console.log("error at addSingleIncomeData server: " + error);
         res.status(500).json({ message: error.message });
     }
 }
@@ -34,7 +33,7 @@ async function getSingleIncome(req, res) {
         const SingleIncome = await Income.findById(id);
         res.status(200).json(SingleIncome)
     } catch (error) {
-        console.log("error at income getSingleIncome request:" + error);
+        console.log("error at getSingleIncome server: " + error);
         res.status(500).json({ message: error.message });
     }
 }
@@ -49,7 +48,7 @@ async function updateSingleIncome(req, res) {
         const allIncomes = await Income.find({});
         res.status(200).json(allIncomes);
     } catch (error) {
-        console.log("error at income updateSingleIncome request:" + error);
+        console.log("error at updateSingleIncome server: " + error);
         res.status(500).json({ message: error.message });
     }
 }
@@ -65,7 +64,7 @@ async function deleteSingleIncome(req, res) {
         const remainData = await Income.find({ _id: { $ne: id } });
         res.status(200).json(remainData);
     } catch (error) {
-        console.log("error at income deleteSingleIncome  request:" + error);
+        console.log("error at deleteSingleIncome server: " + error);
         res.status(500).json({ message: error.message });
     }
 }

@@ -4,7 +4,6 @@ import axios from "axios";
 export const createExpense = createAsyncThunk("createExpense",async (createData, { rejectWithValue })=>{
     try {
         const response = axios.post(process.env.REACT_APP_EXPENSE_URL, createData)
-        console.log("response.data at createxpense slice: " + response.data + "data sending at slice" +JSON.stringify(createData));
         return response.data;
       } catch (error) {
         throw error;
@@ -14,17 +13,16 @@ export const createExpense = createAsyncThunk("createExpense",async (createData,
 export const getAllExpense = createAsyncThunk("getAllExpense",async (args, { rejectWithValue })=>{
     try {
         const response = await axios.get(process.env.REACT_APP_EXPENSE_URL);
-        console.log("response.data at getAllExpense slice: " + response.data);
         return response.data;
       } catch (error) {
         throw error;
       }
 })
 
-export const updateExpense = createAsyncThunk("updateExpense",async ({Title, Income, Desc, selectedId}, { rejectWithValue })=>{
+export const updateExpense = createAsyncThunk("updateExpense",async ({Title, Expense,Date,Category, Desc, selectedId}, { rejectWithValue })=>{
     try {
         const sendUpdatingData = {
-            Title, Income, Desc
+          Title, Expense,Date,Category, Desc,
           };
         const response = await axios.put(`${process.env.REACT_APP_EXPENSE_URL}/${selectedId}`,sendUpdatingData);
         return response.data;

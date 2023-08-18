@@ -10,7 +10,7 @@ const ExpenseList = ({expenseData, handleDelete, type}) => {
     const [viewDataId, setviewDataId] = useState('')
     const [viewInfo, setViewInfo] = useState(false)
 
-    function handleUpdateIncome(id) {
+    function handleUpdateExpense(id) {
         setSelectedId(id);
         setIsOpen(true);
 
@@ -21,7 +21,8 @@ const ExpenseList = ({expenseData, handleDelete, type}) => {
         setviewDataId(id);
     }
 
-  return (
+
+    return (
      <div className='w-[100%] h-full flex flex-col gap-2 p-4' >
             <EditExpenseModal isOpen={isOpen} setIsOpen={setIsOpen} selectedId={selectedId} />
             {expenseData.length === 0 ?
@@ -36,7 +37,7 @@ const ExpenseList = ({expenseData, handleDelete, type}) => {
                                 className='text-2xl hover:text-sky-600 ' />
 
                             <AiOutlineEdit
-                                onClick={() => handleUpdateIncome(data._id)}
+                                onClick={() => handleUpdateExpense(data._id)}
                                 className='text-2xl hover:text-sky-600 ' />
 
                             <AiOutlineDelete

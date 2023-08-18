@@ -5,23 +5,37 @@ import { updateIncome } from "../Slices/IncomeDataSlice"
 
 
 const EditIncomeModal = ({ isOpen, setIsOpen, selectedId }) => {
+
     const [isLoading, setIsLoading] = useState(false);
+    const [selectedDate, setSelectedDate] = useState("");
     const [data, setData] = useState({
+        Date: "",
         Title: "",
         Income: "",
+        Category: "",
         Desc: ""
     });
     const dispatch = useDispatch();
     const IncomeData = useSelector((state) => state.IncomeData.value)
 
+    function inputFormatDate(inputDate){
+        const day = String(inputDate.getDate()).padStart(2, '0');
+        const month = String(inputDate.getMonth() + 1).padStart(2, '0');
+        const year = String(inputDate.getFullYear());
+       return`${year}-${month}-${day}`;
+    }
+
     useEffect(() => {
         async function extractIncome() {
             if (IncomeData.length !== 0 && selectedId) {
                 const filteredData = IncomeData.find((item) => item._id === selectedId);
+                setSelectedDate(inputFormatDate(new Date(filteredData.Date)))
                 if (filteredData) {
                     const newData = {
+                        Date: inputFormatDate(new Date(filteredData.Date)),
                         Title: filteredData.Title,
                         Income: filteredData.Income,
+                        Category: filteredData.Category,
                         Desc: filteredData.Desc
                     };
                     setData(newData);
@@ -32,23 +46,30 @@ const EditIncomeModal = ({ isOpen, setIsOpen, selectedId }) => {
         extractIncome();
     }, [selectedId]);
 
+
+
     function handleChange(e) {
         const { name, value } = e.target;
         setData((prevData) => ({
             ...prevData,
             [name]: value,
         }));
-
+    }
+    function handleDateChange(e) {
+        setSelectedDate(prev => e.target.value);
     }
 
-     function handleSubmit(e) {
+    function handleSubmit(e) {
         e.preventDefault();
         setIsLoading(true); // Show the loader  
-
+        const convertedDate = new Date(selectedDate + 'T00:00:00.000+00:00').toISOString();
         try {
-            const {Title, Income, Desc} = data;
-            dispatch(updateIncome({Title, Income, Desc, selectedId }))
-           
+            dispatch(updateIncome({Title: data.Title,
+                Income: data.Income,
+                Date: convertedDate,  
+                Category: data.Category.toLowerCase(),
+                Desc: data.Desc,selectedId}))
+
 
         } catch (error) {
             console.error("Error sending data at Income form: ", error);
@@ -78,6 +99,19 @@ const EditIncomeModal = ({ isOpen, setIsOpen, selectedId }) => {
                             <form
                                 onSubmit={handleSubmit}
                                 className='flex flex-col'>
+
+                                <label htmlFor="Date" className="block text-white font-semibold">
+                                    Date
+                                </label>
+                                <input
+                                    type="date"
+                                    id="Date"
+                                    name="Date"
+                                    value={selectedDate}
+                                    onChange={(e)=>handleDateChange(e)}
+                                    className="focus:outline-none p-1 bg-gray-200 text-black"
+                                />
+
                                 <label htmlFor="Title" className='nlock text-white font-semibold '>Title</label>
                                 <input type="text"
                                     placeholder='Salary  '
@@ -126,8 +160,7 @@ const EditIncomeModal = ({ isOpen, setIsOpen, selectedId }) => {
                 </div>
             </div>
         </div>
-
     )
 }
 
-export default EditIncomeModal
+export default EditIncomeModal;

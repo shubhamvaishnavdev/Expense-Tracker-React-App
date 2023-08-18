@@ -19,10 +19,10 @@ export const getAllIncome = createAsyncThunk("getAllIncome",async (args, { rejec
       }
 })
 
-export const updateIncome = createAsyncThunk("updateIncome",async ({Title, Income, Desc, selectedId}, { rejectWithValue })=>{
+export const updateIncome = createAsyncThunk("updateIncome",async ({Date,Title, Income, Category, Desc, selectedId}, { rejectWithValue })=>{
     try {
         const sendUpdatingData = {
-            Title, Income, Desc
+          Date,Title, Income, Category, Desc
           };
         const response = await axios.put(`${process.env.REACT_APP_INCOME_URL}/${selectedId}`,sendUpdatingData);
         return response.data;

@@ -29,6 +29,8 @@ const AllInfoViewModal = ({ viewInfo, setViewInfo, allData, viewDataId,type }) =
               (<p><b>Expense: </b>{`₹${extractedData.Expense}`}</p>)
             }
               
+              <p><b>Date: </b>{`${new Date(extractedData.Date).getDate()}/${String(new Date(extractedData.Date).getMonth() + 1).padStart(2, '0')}/${new Date(extractedData.Date).getFullYear()}`}</p>
+              <p><b>Category: </b>{`${extractedData.Category}`}</p>
               <p><b>Description: </b>{`${extractedData.Desc}`}</p>
             </div>
           </div>

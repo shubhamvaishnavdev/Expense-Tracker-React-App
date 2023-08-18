@@ -11,7 +11,7 @@ const Income = () => {
 
   useEffect(() => {
     dispatch(getAllIncome());
-  }, [dispatch])
+  }, [dispatch,createData])
 
   function handleDelete(id) {
     dispatch(deleteIncome(id))
@@ -27,7 +27,7 @@ const Income = () => {
       <AiFillPlusCircle
         onClick={() => setIsOpen(true)}
         className='fixed text-sky-600 text-5xl m-auto bottom-6 left-[16%] border-2 bg-transparent border-none' />
-      <IncomeModal isOpen={isOpen} setIsOpen={setIsOpen} createData={createData} />
+      <IncomeModal isOpen={isOpen} setIsOpen={setIsOpen} createData={createData} incomeData={incomeData} />
       <IncomeList incomeData={incomeData} handleDelete={handleDelete} type={"INCOME"} />
     </div>
   )
