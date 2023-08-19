@@ -26,7 +26,7 @@ const Income = () => {
     <div className='relative w-[100%] h-full '>
       <AiFillPlusCircle
         onClick={() => setIsOpen(true)}
-        className='fixed text-sky-600 text-5xl m-auto bottom-6 left-[16%] border-2 bg-transparent border-none' />
+        className='fixed text-sky-600 text-5xl m-auto bottom-6 left-[6%] border-2 bg-transparent border-none md:bottom-6 md:left-[16%]' />
       <IncomeModal isOpen={isOpen} setIsOpen={setIsOpen} createData={createData} incomeData={incomeData} />
       <IncomeList incomeData={incomeData} handleDelete={handleDelete} type={"INCOME"} />
     </div>

@@ -28,7 +28,7 @@ const Expense = () => {
     <div className='relative w-[100%] h-full '>
       <AiFillPlusCircle
         onClick={() => setIsOpen(!isOpen)}
-        className='fixed text-sky-600 text-5xl m-auto bottom-6 left-[16%] ' />
+        className='fixed text-sky-600 text-5xl m-auto bottom-6 left-[6%] border-2 bg-transparent border-none md:bottom-6 md:left-[16%]' />
       <ExpenseModal isOpen={isOpen} setIsOpen={setIsOpen} createData={createData} expenseData={expenseData} />
       <ExpenseList expenseData={expenseData} handleDelete={handleDelete} type={"EXPENSE"} />
     </div>

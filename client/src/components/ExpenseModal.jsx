@@ -62,7 +62,7 @@ const ExpenseModal = ({ isOpen, setIsOpen, createData, expenseData }) => {
 
             <div
                 onClick={(e) => e.stopPropagation()}
-                className="relative max-h-full w-[30%] max-w-xl overflow-y-auto sm:rounded-2xl bg-blue-600">
+                className="relative max-h-full w-[80%] max-w-xl overflow-y-auto sm:rounded-2xl md:w-[30%] bg-blue-600">
                 <AiOutlineClose
                     onClick={() => setIsOpen(false)}
                     className='absolute text-3xl font-bold text-white top-2 right-2' />

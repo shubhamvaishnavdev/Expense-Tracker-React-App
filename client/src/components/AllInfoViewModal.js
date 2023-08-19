@@ -13,13 +13,13 @@ const AllInfoViewModal = ({ viewInfo, setViewInfo, allData, viewDataId,type }) =
 
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative h-auto w-[40%] p-6 max-w-xl overflow-y-auto rounded-2xl bg-blue-600">
+        className="relative h-auto w-[70%] p-6 max-w-xl overflow-y-auto rounded-2xl md:w-[40%] bg-blue-600">
         <AiOutlineClose
           onClick={() => setViewInfo(false)}
-          className='absolute text-3xl font-bold text-white top-2 right-2' />
+          className='absolute text-3xl font-bold text-white top-2 right-2 ' />
 
         {extractedData && (
-          <div className="h-full w-full ">
+          <div className="h-full w-full mt-4">
             <h1 className=" text-3xl font-extrabold text-white mb-2">Income Details</h1>
             <div className="p-2 w-auto mx-auto text-white font-semibold">
             <p><b>Title: </b>{`${extractedData.Title}`}</p>
