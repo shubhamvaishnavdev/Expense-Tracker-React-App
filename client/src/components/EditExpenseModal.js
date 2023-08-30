@@ -6,7 +6,6 @@ import { updateExpense } from "../Slices/ExpenseDataSlice"
 
 const EditExpenseModal = ({ isOpen, setIsOpen, selectedId }) => {
 
-    const [isLoading, setIsLoading] = useState(false);
     const [selectedDate, setSelectedDate] = useState("");
     const [data, setData] = useState({
         Date: "",
@@ -17,6 +16,8 @@ const EditExpenseModal = ({ isOpen, setIsOpen, selectedId }) => {
     });
     const dispatch = useDispatch();
     const ExpenseData = useSelector((state) => state.ExpenseData.value)
+    const loading = useSelector(state => state.ExpenseData.loading)
+
 
     function inputFormatDate(inputDate){
         const day = String(inputDate.getDate()).padStart(2, '0');
@@ -56,13 +57,11 @@ const EditExpenseModal = ({ isOpen, setIsOpen, selectedId }) => {
         }));
     }
     function handleDateChange(e) {
-        const updatedDate = 
         setSelectedDate(prev => e.target.value);
     }
 
     function handleSubmit(e) {
-        e.preventDefault();
-        setIsLoading(true); // Show the loader  
+        e.preventDefault(); 
         const convertedDate = new Date(selectedDate + 'T00:00:00.000+00:00').toISOString();
         try {
             dispatch(updateExpense({Title: data.Title,
@@ -75,8 +74,9 @@ const EditExpenseModal = ({ isOpen, setIsOpen, selectedId }) => {
         } catch (error) {
             console.error("Error sending data at Expense form: ", error);
         }
-
-        setIsLoading(false); // Hide the loader
+        if(loading === false){
+            setIsOpen(false); // Hide the loader
+        }
     }
 
     return (
@@ -142,7 +142,7 @@ const EditExpenseModal = ({ isOpen, setIsOpen, selectedId }) => {
                                     className='focus:outline-none p-1 bg-gray-200 text-black'
                                 />
                                 {
-                                    isLoading ? (
+                                    loading ? (
                                         <div type='submit'
                                             className='mt-4 py-1 px-4 bg-black text-white'
                                         >

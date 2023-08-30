@@ -11,15 +11,23 @@ const Income = () => {
 
   useEffect(() => {
     dispatch(getAllIncome());
-  }, [dispatch,createData])
+  }, [dispatch])
 
   function handleDelete(id) {
-    dispatch(deleteIncome(id))
+    try {
+      dispatch(deleteIncome(id))
+    } catch (error) {
+      console.log("issue at income page delete function" + error);
+    }
   }
 
   function createData(data) {
-    dispatch(createIncome(data))
-    dispatch(getAllIncome());
+    try {
+      dispatch(createIncome(data))
+      dispatch(getAllIncome());
+    } catch (error) {
+      console.log("issue at income page" + error);
+    } 
   }
 
   return (

@@ -7,6 +7,9 @@ import AllInfoViewModal from "./AllInfoViewModal";
 import ExpenseModal from "./ExpenseModal";
 import ExpenseList from "./ExpenseList";
 import EditExpenseModal from "./EditExpenseModal";
+import LoadingSpinner from "./LoadingSpinner";
+
+
 
 export {Sidebar, 
     IncomeModal, 
@@ -15,5 +18,6 @@ export {Sidebar,
     AllInfoViewModal, 
     ExpenseModal, 
     ExpenseList,
-    EditExpenseModal
+    EditExpenseModal,
+    LoadingSpinner
 };

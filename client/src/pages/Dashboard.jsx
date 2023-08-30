@@ -82,10 +82,9 @@ const Dashboard = () => {
   ];
 
   const yearOptions = years.map((year) => ({ value: year, label: year.toString() }));
-
+  
   return (
     <div className='min-h-full w-[100%] p-4' >
-
       <div className='border-black border-2 flex flex-col justify-center items-center flex-wrap md:justify-around md:flex-row'>
         <div className='text-xl flex justify-center items-center my-4'>
           {
@@ -106,6 +105,7 @@ const Dashboard = () => {
             onChange={handleYearChange}
             placeholder="Select Year"
             value={yearOptions.find(option => option.value === selectedYear)} // Set the selected option based on value
+            // value={newData.value} // Set the selected option based on value
           />
         </div>
       </div>

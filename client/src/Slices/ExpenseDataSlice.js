@@ -57,46 +57,58 @@ const ExpenseDataSlice = createSlice({
         builder
         .addCase(getAllExpense.pending, (state) => {
             state.status = 'loading';
+            state.loading = true;
           })
           .addCase(getAllExpense.fulfilled, (state, action) => {
             state.status = 'succeeded';
             state.value = action.payload;
+            state.loading = false;
           })
           .addCase(getAllExpense.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message;
+            state.loading = false;
           })
           .addCase(updateExpense.pending, (state) => {
             state.status = 'loading';
+            state.loading = true;
           })
           .addCase(updateExpense.fulfilled, (state, action) => {
             state.status = 'succeeded';
             state.value = action.payload;
+            state.loading = false;
           })
           .addCase(updateExpense.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message;
+            state.loading = false;
           })
           .addCase(deleteExpense.pending, (state) => {
             state.status = 'loading';
+            state.loading = true;
           })
           .addCase(deleteExpense.fulfilled, (state, action) => {
             state.status = 'succeeded';
             state.value = action.payload;
+            state.loading = false;
           })
           .addCase(deleteExpense.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message;
+            state.loading = false;
           })
           .addCase(createExpense.pending, (state) => {
             state.status = 'loading';
+            state.loading = true;
           })
           .addCase(createExpense.fulfilled, (state, action) => {
             state.status = 'succeeded';
+            state.loading = false;
           })
           .addCase(createExpense.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message;
+            state.loading = false;
           })
       },
    

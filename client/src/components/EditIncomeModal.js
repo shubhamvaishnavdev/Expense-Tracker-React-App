@@ -6,7 +6,6 @@ import { updateIncome } from "../Slices/IncomeDataSlice"
 
 const EditIncomeModal = ({ isOpen, setIsOpen, selectedId }) => {
 
-    const [isLoading, setIsLoading] = useState(false);
     const [selectedDate, setSelectedDate] = useState("");
     const [data, setData] = useState({
         Date: "",
@@ -16,6 +15,7 @@ const EditIncomeModal = ({ isOpen, setIsOpen, selectedId }) => {
         Desc: ""
     });
     const dispatch = useDispatch();
+    const loading = useSelector(state => state.IncomeData.loading)
     const IncomeData = useSelector((state) => state.IncomeData.value)
 
     function inputFormatDate(inputDate){
@@ -61,7 +61,6 @@ const EditIncomeModal = ({ isOpen, setIsOpen, selectedId }) => {
 
     function handleSubmit(e) {
         e.preventDefault();
-        setIsLoading(true); // Show the loader  
         const convertedDate = new Date(selectedDate + 'T00:00:00.000+00:00').toISOString();
         try {
             dispatch(updateIncome({Title: data.Title,
@@ -74,8 +73,10 @@ const EditIncomeModal = ({ isOpen, setIsOpen, selectedId }) => {
         } catch (error) {
             console.error("Error sending data at Income form: ", error);
         }
+        if(loading === false){
+            setIsOpen(false);
+        }
 
-        setIsLoading(false); // Hide the loader
     }
 
     return (
@@ -141,7 +142,7 @@ const EditIncomeModal = ({ isOpen, setIsOpen, selectedId }) => {
                                     className='focus:outline-none p-1 bg-gray-200 text-black'
                                 />
                                 {
-                                    isLoading ? (
+                                    loading ? (
                                         <div type='submit'
                                             className='mt-4 py-1 px-4 bg-black text-white'
                                         >

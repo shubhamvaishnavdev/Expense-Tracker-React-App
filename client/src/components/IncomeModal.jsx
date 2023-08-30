@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { AiOutlineClose } from "react-icons/ai";
+import { useSelector } from 'react-redux';
 
 const IncomeModal = ({ isOpen, setIsOpen, createData, incomeData }) => {
-    const [isLoading, setIsLoading] = useState(false);
     const [selectedDate, setSelectedDate] = useState(formatDate(new Date(), true));
+    const loading = useSelector(state => state.IncomeData.loading)
     const [data, setData] = useState({
         Title: "",
         Income: "",
@@ -40,8 +41,6 @@ const IncomeModal = ({ isOpen, setIsOpen, createData, incomeData }) => {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        setIsLoading(true); // Show the loader  
-
         try {
             const newData = {
                 Title: data.Title,
@@ -51,11 +50,12 @@ const IncomeModal = ({ isOpen, setIsOpen, createData, incomeData }) => {
                 Desc: data.Desc,
             };
             createData(newData)
-            setIsOpen(false);
         } catch (error) {
-            console.error("Error sending data at Income form: ", error);
+            console.error("Error sending data at IncomeModal: ", error);
         }
-        setIsLoading(false); // Hide the loader
+        if(loading === false){
+            setIsOpen(false);
+        }
     }
 
     return (
@@ -138,7 +138,7 @@ const IncomeModal = ({ isOpen, setIsOpen, createData, incomeData }) => {
                                     className='focus:outline-none p-1 bg-gray-200 text-black'
                                 />
                                 {
-                                    isLoading ? (
+                                    loading ? (
                                         <div type='submit'
                                             className='mt-4 py-1 px-4 bg-black text-white'
                                         >

@@ -57,46 +57,58 @@ const IncomeDataSlice = createSlice({
         builder
         .addCase(getAllIncome.pending, (state) => {
             state.status = 'loading';
+            state.loading = true;
           })
           .addCase(getAllIncome.fulfilled, (state, action) => {
             state.status = 'succeeded';
             state.value = action.payload;
+            state.loading = false;
           })
           .addCase(getAllIncome.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message;
+            state.loading = false;
           })
           .addCase(updateIncome.pending, (state) => {
             state.status = 'loading';
+            state.loading = true;
           })
           .addCase(updateIncome.fulfilled, (state, action) => {
             state.status = 'succeeded';
             state.value = action.payload;
+            state.loading = false;
           })
           .addCase(updateIncome.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message;
+            state.loading = false;
           })
           .addCase(deleteIncome.pending, (state) => {
             state.status = 'loading';
+            state.loading = true;
           })
           .addCase(deleteIncome.fulfilled, (state, action) => {
             state.status = 'succeeded';
             state.value = action.payload;
+            state.loading = false;
           })
           .addCase(deleteIncome.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message;
+            state.loading = false;
           })
           .addCase(createIncome.pending, (state) => {
             state.status = 'loading';
+            state.loading = true;
           })
           .addCase(createIncome.fulfilled, (state, action) => {
             state.status = 'succeeded';
+            state.loading = false;
           })
           .addCase(createIncome.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message;
+            state.loading = false;
           })
       },
    
