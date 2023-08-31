@@ -88,53 +88,57 @@ const Dashboard = () => {
 
   return (
     <div className='min-h-full w-[100%] p-4' >
-      <div className='border-black border-2 flex flex-col justify-center items-center flex-wrap md:justify-around md:flex-row'>
-        <div className='text-xl flex justify-center items-center my-4'>
-          {
-            balance >= 0 ?
-              (<span>Balance: <span className='font-bold text-green-600' >₹{balance}</span></span>) :
-              (<span>Balance: <span className='font-bold text-red-600' >₹{balance}</span></span>)
-          }
-        </div>
-        <div className='w-full p-2 flex justify-center items-center md:w-[60%] md:p-0 gap-4' >
-          <Select className='w-[10rem]'
-            options={monthOptions}
-            onChange={handleMonthChange}
-            placeholder="Select Month"
-            value={monthOptions.find(option => option.value === selectedMonth)} // Set the selected option based on value
-          />
-          <Select className='w-[10rem]'
-            options={yearOptions}
-            onChange={handleYearChange}
-            placeholder="Select Year"
-            value={yearOptions.find(option => option.value === selectedYear)} // Set the selected option based on value
-          // value={newData.value} // Set the selected option based on value
-          />
-        </div>
-      </div>
+      {
+        loading ?
+          (<LoadingSpinner />) :
+          (<div className='border-black border-2 flex flex-col justify-center items-center flex-wrap md:justify-around md:flex-row'>
+            <div className='text-xl flex justify-center items-center my-4'>
+              {
+                balance >= 0 ?
+                  (<span>Balance: <span className='font-bold text-green-600' >₹{balance}</span></span>) :
+                  (<span>Balance: <span className='font-bold text-red-600' >₹{balance}</span></span>)
+              }
+            </div>
+            <div className='w-full p-2 flex justify-center items-center md:w-[60%] md:p-0 gap-4' >
+              <Select className='w-[10rem]'
+                options={monthOptions}
+                onChange={handleMonthChange}
+                placeholder="Select Month"
+                value={monthOptions.find(option => option.value === selectedMonth)} // Set the selected option based on value
+              />
+              <Select className='w-[10rem]'
+                options={yearOptions}
+                onChange={handleYearChange}
+                placeholder="Select Year"
+                value={yearOptions.find(option => option.value === selectedYear)} // Set the selected option based on value
+              // value={newData.value} // Set the selected option based on value
+              />
+            </div>
+          </div>)
+      }
 
-     {
-      loading ?
-      (<LoadingSpinner/>):
-      ( <div className='flex flex-col justify-center items-center gap-4'>
-      <div className='h-[40%] md:h-[28rem] w-[100%] pb-8 flex justify-center items-center py-4 '>
-        <ComparisonVerticalBar
-          filteredIncomeData={filteredIncomeData}
-          filteredExpenseData={filteredExpenseData}
-        />
-      </div>
-      <div className='h-[40%] md:h-[28rem] w-[100%] pb-8 flex justify-center items-center py-4 '>
-        <IncomeCategory
-          filteredIncomeData={filteredIncomeData}
-        />
-      </div>
-      <div className='h-[40%] md:h-[28rem] w-[100%] pb-8 flex justify-center items-center py-4 '>
-        <ExpenseCategory
-          filteredExpenseData={filteredExpenseData}
-        />
-      </div>
-    </div>)
-     }
+      {
+        loading ?
+          (<LoadingSpinner />) :
+          (<div className='flex flex-col justify-center items-center gap-4'>
+            <div className='h-[40%] md:h-[28rem] w-[100%] pb-8 flex justify-center items-center py-4 '>
+              <ComparisonVerticalBar
+                filteredIncomeData={filteredIncomeData}
+                filteredExpenseData={filteredExpenseData}
+              />
+            </div>
+            <div className='h-[40%] md:h-[28rem] w-[100%] pb-8 flex justify-center items-center py-4 '>
+              <IncomeCategory
+                filteredIncomeData={filteredIncomeData}
+              />
+            </div>
+            <div className='h-[40%] md:h-[28rem] w-[100%] pb-8 flex justify-center items-center py-4 '>
+              <ExpenseCategory
+                filteredExpenseData={filteredExpenseData}
+              />
+            </div>
+          </div>)
+      }
     </div>
   )
 }

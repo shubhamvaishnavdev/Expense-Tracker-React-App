@@ -51,6 +51,12 @@ const ExpenseModal = ({ isOpen, setIsOpen, createData, expenseData }) => {
         }
         if(loading === false){
             setIsOpen(false);
+            setData({
+                Title: "",
+                Expense: "",
+                Category: "",
+                Desc: ""
+            })
         }
     }
 

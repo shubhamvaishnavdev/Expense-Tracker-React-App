@@ -26,12 +26,12 @@ const IncomeModal = ({ isOpen, setIsOpen, createData, incomeData }) => {
     function handleDateChange(e) {
         setSelectedDate(e.target.value);
     }
-    
+
     function formatDate(date, forInput = false) {
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
-    
+
         if (forInput) {
             return `${year}-${month}-${day}`;
         } else {
@@ -45,7 +45,7 @@ const IncomeModal = ({ isOpen, setIsOpen, createData, incomeData }) => {
             const newData = {
                 Title: data.Title,
                 Income: data.Income,
-                Date: new Date(selectedDate),  
+                Date: new Date(selectedDate),
                 Category: data.Category.toLowerCase(),
                 Desc: data.Desc,
             };
@@ -53,8 +53,14 @@ const IncomeModal = ({ isOpen, setIsOpen, createData, incomeData }) => {
         } catch (error) {
             console.error("Error sending data at IncomeModal: ", error);
         }
-        if(loading === false){
+        if (loading === false) {
             setIsOpen(false);
+            setData({
+                Title: "",
+                Income: "",
+                Category: "",
+                Desc: ""
+            })
         }
     }
 

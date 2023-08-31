@@ -33,10 +33,15 @@ const IncomeList = ({ incomeData, handleDelete, type }) => {
                 (incomeData.length === 0 ?
                     (<p className='text-center text-xl font-bold text-gray-600' >Add Income From below</p>) :
                     (incomeData.map((data) => (
-                        <div key={data._id} className=' flex flex-wrap items-center justify-between px-8  border-2 border-black '>
-                            <p className='text-xl text-black' >{data.Title}</p>
-                            <div className='flex flex-wrap items-center justify-between gap-4'>
+                        <div key={data._id} className=' flex flex-col flex-wrap items-center justify-between px-8  border-2 border-black md:flex-row'>
+                           
+                            <div className='w-full flex flex-wrap justify-between md:w-[80%]'>
+                                <p className='text-xl text-black' >{data.Title}</p>
                                 <p className='text-lg font-bold text-green-600' >{` ₹${data.Income}`} </p>
+                            </div>
+
+                            <div className='flex flex-wrap items-center justify-between gap-4'>
+
                                 <AiOutlineEye
                                     onClick={() => handleViewData(data._id)}
                                     className='text-2xl hover:text-sky-600 ' />

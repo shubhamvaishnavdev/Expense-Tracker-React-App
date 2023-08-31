@@ -75,6 +75,13 @@ const EditIncomeModal = ({ isOpen, setIsOpen, selectedId }) => {
         }
         if(loading === false){
             setIsOpen(false);
+            setData({
+                Date: "",
+                Title: "",
+                Income: "",
+                Category: "",
+                Desc: ""
+            })
         }
 
     }

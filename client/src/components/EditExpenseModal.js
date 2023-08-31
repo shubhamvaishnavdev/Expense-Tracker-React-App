@@ -19,11 +19,11 @@ const EditExpenseModal = ({ isOpen, setIsOpen, selectedId }) => {
     const loading = useSelector(state => state.ExpenseData.loading)
 
 
-    function inputFormatDate(inputDate){
+    function inputFormatDate(inputDate) {
         const day = String(inputDate.getDate()).padStart(2, '0');
         const month = String(inputDate.getMonth() + 1).padStart(2, '0');
         const year = String(inputDate.getFullYear());
-       return`${year}-${month}-${day}`;
+        return `${year}-${month}-${day}`;
     }
 
     useEffect(() => {
@@ -61,21 +61,30 @@ const EditExpenseModal = ({ isOpen, setIsOpen, selectedId }) => {
     }
 
     function handleSubmit(e) {
-        e.preventDefault(); 
+        e.preventDefault();
         const convertedDate = new Date(selectedDate + 'T00:00:00.000+00:00').toISOString();
         try {
-            dispatch(updateExpense({Title: data.Title,
+            dispatch(updateExpense({
+                Title: data.Title,
                 Expense: data.Expense,
-                Date: convertedDate,  
+                Date: convertedDate,
                 Category: data.Category.toLowerCase(),
-                Desc: data.Desc,selectedId}))
+                Desc: data.Desc, selectedId
+            }))
 
 
         } catch (error) {
             console.error("Error sending data at Expense form: ", error);
         }
-        if(loading === false){
+        if (loading === false) {
             setIsOpen(false); // Hide the loader
+            setData({
+                Date: "",
+                Title: "",
+                Expense: "",
+                Category: "",
+                Desc: ""
+            })
         }
     }
 
@@ -109,7 +118,7 @@ const EditExpenseModal = ({ isOpen, setIsOpen, selectedId }) => {
                                     id="Date"
                                     name="Date"
                                     value={selectedDate}
-                                    onChange={(e)=>handleDateChange(e)}
+                                    onChange={(e) => handleDateChange(e)}
                                     className="focus:outline-none p-1 bg-gray-200 text-black"
                                 />
 
