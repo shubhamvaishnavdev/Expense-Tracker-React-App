@@ -31,7 +31,7 @@ const Income = () => {
   }
 
   return (
-    <div className='relative w-[100%] h-full '>
+    <div className='relative w-[100%] min-h-[100dvh] bg-#F3F4F6'>
       <AiFillPlusCircle
         onClick={() => setIsOpen(true)}
         className='fixed text-sky-600 text-5xl m-auto bottom-6 left-[6%] border-2 bg-transparent border-none md:bottom-6 md:left-[16%]' />
